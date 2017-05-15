@@ -107,23 +107,6 @@ export default class AgendaView extends Component {
     }
   }
 
-  renderReservations() {
-    return (
-      <ReservationsList
-        rowHasChanged={this.props.rowHasChanged}
-        renderItem={this.props.renderItem}
-        renderDay={this.props.renderDay}
-        renderEmptyDate={this.props.renderEmptyDate}
-        reservations={this.props.items}
-        selectedDay={this.state.selectedDay}
-        topDay={this.state.topDay}
-        onDayChange={this.onDayChange.bind(this)}
-        onScroll={() => {}}
-        ref={(c) => this.list = c}
-      />
-    );
-  }
-
   onDayChange(day) {
     const newDate = parseDate(day);
     const withAnimation = dateutils.sameMonth(newDate, this.state.selectedDay);
@@ -159,9 +142,6 @@ export default class AgendaView extends Component {
 
     return (
       <View onLayout={this.onLayout.bind(this)} style={[this.props.style, {flex: 1}]}>
-        <View style={this.styles.reservations}>
-          {this.renderReservations()}
-        </View>
         <Animated.View style={calendarStyle}>
           <CalendarList
             theme={this.props.theme}
@@ -169,7 +149,7 @@ export default class AgendaView extends Component {
             ref={(c) => this.calendar = c}
             selected={[this.state.selectedDay]}
             current={this.currentMonth}
-            markedDates={this.props.items}
+            // markedDates={this.props.items}
             onDayPress={this.chooseDay.bind(this)}
             scrollingEnabled={this.state.calendarScrollable}
             hideExtraDays={this.state.calendarScrollable}
